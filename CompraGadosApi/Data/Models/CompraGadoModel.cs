@@ -1,10 +1,13 @@
+using System;
+using System.Collections.Generic;
+
 namespace CompraGadosApi.Data.Models
 {
     class CompraGadoModel
     {
         public int Id { get; set; }
-        public int Quantidade { get; set; }
-        public int CompraGadoId { get; set; }
-        public int AnimalId { get; set; }
+        public DateTime? DataEntrega { get; set; }
+        public int PecuaristaId { get; set; }
+        public List<CompraGadoItemModel> Itens { get; set; }
     }
 }

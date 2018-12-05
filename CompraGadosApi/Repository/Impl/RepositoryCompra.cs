@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CompraGadosApi.Data.Dtos;
 using CompraGadosApi.Data.Models;
@@ -22,9 +23,24 @@ namespace CompraGadosApi.Repository.Impl
             throw new System.NotImplementedException();
         }
 
+        public CompraGadoDto Get(int id, int pecuaristaId, DateTime? dataInicio, DateTime? dataFim)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GravarItem(CompraGadoItemModel Compra)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public int Post(CompraGadoModel Compra)
         {
             throw new System.NotImplementedException();
+        }
+
+        IEnumerable<CompraGadoDto> IRepositoryCompra.Get(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
