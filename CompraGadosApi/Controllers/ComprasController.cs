@@ -25,20 +25,24 @@ namespace CompraGadosApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<IEnumerable<CompraGadoDto>> Get(int id)
         {
-            // TODO: pass filters
-            return Ok(_repository.Get(id));
+            // TODO: buscar compra e seus itens
+            return Ok(_repository.ConsultarCompra(id));
         }
 
         [HttpGet("{id}/{pecuaristaId}/{dataInicio}/{dataFim}")]
         public ActionResult<CompraGadoDto> Get(int id, int pecuaristaId, DateTime? dataInicio, DateTime? dataFim)
         {
-            // TODO: buscar compra e seus itens
-            return Ok(_repository.Get(id, pecuaristaId, dataInicio, dataFim));
+            return Ok(_repository.RelatorioCompra(id, pecuaristaId, dataInicio, dataFim));
         }
 
         [HttpPost]
         public ActionResult Post([FromBody] CompraGadoDto Compra)
         {
+            if (Compra.IsImpresso)
+            {
+                return BadRequest("A compra já está impressa, não pode ser excluída");
+            }
+
             var Model = new CompraGadoModel()
             {
                 Id = Compra.Id,
@@ -71,23 +75,30 @@ namespace CompraGadosApi.Controllers
                 return BadRequest("Nenhum item na compra pode ter quantidade menor ou igual a zero");
             }
 
-            _repository.Post(Model);
+            if (Model.Id == 0)
+            {
+                Model.Id = _repository.GravarCompra(Model);
+            }
+            else
+            {
+                _repository.AtualizarCompra(Model);
+            }
 
             Compra.Itens.ForEach(x =>
             {
                 if (x.FlagExcluir)
                 {
-                    // TODO: delete item
+                    _repository.DeletarItem(x.Id);
                 }
                 else
                 {
-                    if (x.Id > 0)
+                    if (x.Id == 0)
                     {
-                        // TODO: gravar
+                        _repository.GravarItem(new CompraGadoItemModel(x, Model.Id));
                     }
                     else
                     {
-                        // TODO: atualizar
+                        _repository.AtualizarItem(new CompraGadoItemModel(x, Model.Id));
                     }
                 }
             });
@@ -98,7 +109,7 @@ namespace CompraGadosApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _repository.Delete(id);
+            _repository.DeletarCompra(id);
         }
     }
 }

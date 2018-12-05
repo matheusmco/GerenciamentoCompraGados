@@ -8,6 +8,7 @@ namespace CompraGadosApi.Data.Models
         public int Id { get; set; }
         public DateTime? DataEntrega { get; set; }
         public int PecuaristaId { get; set; }
+        public bool IsImpresso { get; set; }
         public List<CompraGadoItemModel> Itens { get; set; }
     }
 }

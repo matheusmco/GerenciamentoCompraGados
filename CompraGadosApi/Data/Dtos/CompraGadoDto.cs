@@ -10,6 +10,7 @@ namespace CompraGadosApi.Data.Dtos
         public string NomePecuarista { get; set; }
         public DateTime? DataEntrega { get; set; }
         public double ValorTotal { get; set; }
+        public bool IsImpresso { get; set; }
         public List<CompraGadoItemDto> Itens { get; set; }
     }
 }

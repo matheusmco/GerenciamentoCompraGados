@@ -8,37 +8,42 @@ namespace CompraGadosApi.Repository.Impl
 {
     class RepositoryCompra : RepositoryBase, IRepositoryCompra
     {
-        public void Delete(int id)
+        public int AtualizarCompra(CompraGadoModel Compra)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<CompraGadoDto> Get()
+        public int AtualizarItem(CompraGadoItemModel Compra)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public CompraGadoDto Get(int id)
+        public IEnumerable<CompraGadoDto> ConsultarCompra(int id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public CompraGadoDto Get(int id, int pecuaristaId, DateTime? dataInicio, DateTime? dataFim)
+        public void DeletarCompra(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletarItem(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GravarCompra(CompraGadoModel Compra)
         {
             throw new NotImplementedException();
         }
 
         public int GravarItem(CompraGadoItemModel Compra)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public int Post(CompraGadoModel Compra)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        IEnumerable<CompraGadoDto> IRepositoryCompra.Get(int id)
+        public CompraGadoDto RelatorioCompra(int id, int pecuaristaId, DateTime? dataInicio, DateTime? dataFim)
         {
             throw new NotImplementedException();
         }

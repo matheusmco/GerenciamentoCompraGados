@@ -7,6 +7,6 @@ namespace CompraGadosApi.Data.Dtos
         public string NomeAnimal { get; set; }
         public int QuantidadeAnimal { get; set; }
         public double PrecoAnimal { get; set; }
-        public bool FlagExcluir { get; set; } // TODO: utilizar para excluir os itens
+        public bool FlagExcluir { get; set; }
     }
 }
