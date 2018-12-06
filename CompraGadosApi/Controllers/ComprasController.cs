@@ -21,6 +21,8 @@ namespace CompraGadosApi.Controllers
             _repository = new RepositoryCompra();
         }
 
+        // TODO: fazer endpoint para update de impressão
+
         [HttpGet]
         [HttpGet("{id}")]
         public ActionResult<CompraGadoDto> Get(int id)
@@ -44,29 +46,23 @@ namespace CompraGadosApi.Controllers
                 return BadRequest("A compra já está impressa, não pode ser excluída");
             }
 
-            var Model = new CompraGadoModel()
-            {
-                Id = Compra.Id,
-                DataEntrega = Compra.DataEntrega,
-                PecuaristaId = Compra.PecuaristaId
-            };
-
-            if (Model.DataEntrega == null)
+            if (Compra.DataEntrega == null)
             {
                 return BadRequest("A compra deve possuir uma data de entrega");
             }
 
-            if (Model.PecuaristaId == 0)
+            if (Compra.PecuaristaId == 0)
             {
                 return BadRequest("A compra deve possuir um pecuarista");
             }
 
-            if (Model.PecuaristaId == 0)
+            if (Compra.Itens == null)
             {
-                return BadRequest("A compra deve possuir um pecuarista");
+                return BadRequest("A compra deve possuir pelo menos 1 item");
             }
 
-            if (Compra.Itens.GroupBy(x => x.AnimalId).Count() > 1)
+            // agrupo pelo id do animal, se a lista resultante for menor que a lista de itens, temos itens com animais repetidos
+            if (Compra.Itens.GroupBy(x => x.AnimalId).Count() < Compra.Itens.Count())
             {
                 return BadRequest("A compra não pode possuir mais de dois itens com o mesmo animal");
             }
@@ -75,6 +71,13 @@ namespace CompraGadosApi.Controllers
             {
                 return BadRequest("Nenhum item na compra pode ter quantidade menor ou igual a zero");
             }
+
+            var Model = new CompraGadoModel()
+            {
+                Id = Compra.Id,
+                DataEntrega = Compra.DataEntrega,
+                PecuaristaId = Compra.PecuaristaId
+            };
 
             if (Model.Id == 0)
             {
@@ -110,6 +113,7 @@ namespace CompraGadosApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _repository.DeletarItemPorCompra(id);
             _repository.DeletarCompra(id);
         }
     }

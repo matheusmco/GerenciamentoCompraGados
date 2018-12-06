@@ -15,6 +15,7 @@ namespace CompraGadosApi.Repository.Interface
         int GravarItem(CompraGadoItemModel Compra);
         int AtualizarItem(CompraGadoItemModel Compra);
         void DeletarItem(int id);
+        void DeletarItemPorCompra(int id);
         void DeletarCompra(int id);
     }
 }

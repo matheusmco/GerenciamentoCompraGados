@@ -29,7 +29,7 @@ namespace CompraGadosApi.Repository.Impl
         {
             using (var connection = Connection)
             {
-                connection.QueryFirst("UPDATE COMPRA_GADO_ITEM SET QUANTIDADE = @quantidade, ANIMAL_ID = @animalId WHERE ID = @id",
+                connection.Execute("UPDATE COMPRA_GADO_ITEM SET QUANTIDADE = @quantidade, ANIMAL_ID = @animalId WHERE ID = @id",
                     param: new
                     {
                         quantidade = Compra.Quantidade,
@@ -57,7 +57,10 @@ namespace CompraGadosApi.Repository.Impl
         {
             using (var connection = Connection)
             {
-                return connection.Query<CompraGadoItemDto>("SELECT COMPRA_GADO_ITEM.ID, ANIMAL.NOME AS NOME_ANIMAL, COMPRA_GADO.QUANTIDADE AS QUANTIDADE_ANIMAL FROM COMPRA_GADO_ITEM WHERE COMPRA_GADO_ID = @id",
+                return connection.Query<CompraGadoItemDto>("SELECT COMPRA_GADO_ITEM.ID, ANIMAL.ID AS ANIMAL_ID, ANIMAL.DESCRICAO AS NOME_ANIMAL, COMPRA_GADO_ITEM.QUANTIDADE AS QUANTIDADE_ANIMAL "
+                + "FROM COMPRA_GADO_ITEM "
+                + "INNER JOIN ANIMAL ON COMPRA_GADO_ITEM.ANIMAL_ID = ANIMAL.ID "
+                + "WHERE COMPRA_GADO_ID = @id",
                     param: new
                     {
                         id
@@ -82,6 +85,18 @@ namespace CompraGadosApi.Repository.Impl
             using (var connection = Connection)
             {
                 connection.Execute("DELETE FROM COMPRA_GADO_ITEM WHERE ID = @id",
+                    param: new
+                    {
+                        id = id
+                    });
+            }
+        }
+
+        public void DeletarItemPorCompra(int id)
+        {
+            using (var connection = Connection)
+            {
+                connection.Execute("DELETE FROM COMPRA_GADO_ITEM WHERE COMPRA_GADO_ID = @id",
                     param: new
                     {
                         id = id
