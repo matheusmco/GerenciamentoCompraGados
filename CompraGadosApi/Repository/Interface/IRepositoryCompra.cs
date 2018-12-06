@@ -7,8 +7,9 @@ namespace CompraGadosApi.Repository.Interface
 {
     interface IRepositoryCompra
     {
-        IEnumerable<CompraGadoDto> ConsultarCompra(int id);
-        CompraGadoDto RelatorioCompra(int id, int pecuaristaId, DateTime? dataInicio, DateTime? dataFim);
+        CompraGadoDto ConsultarCompra(int id);
+        IEnumerable<CompraGadoDto> RelatorioCompra(int? id, int? pecuaristaId, DateTime? dataInicio, DateTime? dataFim);
+        IEnumerable<CompraGadoItemDto> ConsultarItensPorCompra(int id);
         int GravarCompra(CompraGadoModel Compra);
         int AtualizarCompra(CompraGadoModel Compra);
         int GravarItem(CompraGadoItemModel Compra);

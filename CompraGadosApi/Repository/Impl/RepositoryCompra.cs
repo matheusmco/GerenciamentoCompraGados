@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CompraGadosApi.Data.Dtos;
 using CompraGadosApi.Data.Models;
 using CompraGadosApi.Repository.Interface;
+using Dapper;
 
 namespace CompraGadosApi.Repository.Impl
 {
@@ -18,7 +19,12 @@ namespace CompraGadosApi.Repository.Impl
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CompraGadoDto> ConsultarCompra(int id)
+        public CompraGadoDto ConsultarCompra(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<CompraGadoItemDto> ConsultarItensPorCompra(int id)
         {
             throw new NotImplementedException();
         }
@@ -43,9 +49,23 @@ namespace CompraGadosApi.Repository.Impl
             throw new NotImplementedException();
         }
 
-        public CompraGadoDto RelatorioCompra(int id, int pecuaristaId, DateTime? dataInicio, DateTime? dataFim)
+        public IEnumerable<CompraGadoDto> RelatorioCompra(int? id, int? pecuaristaId, DateTime? dataInicio, DateTime? dataFim)
         {
-            throw new NotImplementedException();
+            using (var connection = Connection)
+            {
+                return connection.Query<CompraGadoDto>(""
+                    + "SELECT COMPRA_GADO.ID, PECUARISTA.NOME, COMPRA_GADO.DATA_ENTREGA "
+                    + "FROM "
+                    + "COMPRA_GADO INNER JOIN PECUARISTA ON COMPRA_GADO.PECUARISTA_ID = PECUARISTA.ID "
+                    + "WHERE COMPRA_GADO.ID = @id OR COMPRA_GADO.PECUARISTA_ID = @pecuaristaId OR COMPRA_GADO.DATA_ENTREGA BETWEEN @dataInicio AND @dataFim",
+                    param: new
+                    {
+                        id,
+                        pecuaristaId,
+                        dataInicio,
+                        dataFim
+                    });
+            }
         }
     }
 }

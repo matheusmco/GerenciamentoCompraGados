@@ -23,14 +23,17 @@ namespace CompraGadosApi.Controllers
 
         [HttpGet]
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<CompraGadoDto>> Get(int id)
+        public ActionResult<CompraGadoDto> Get(int id)
         {
-            // TODO: buscar compra e seus itens
-            return Ok(_repository.ConsultarCompra(id));
+            var Compra = _repository.ConsultarCompra(id);
+            Compra.Itens = _repository.ConsultarItensPorCompra(Compra.Id).ToList();
+            Compra.ValorTotal = Compra.Itens.Select(x => x.QuantidadeAnimal * x.PrecoAnimal).Sum();
+            return Ok(Compra);
         }
 
-        [HttpGet("{id}/{pecuaristaId}/{dataInicio}/{dataFim}")]
-        public ActionResult<CompraGadoDto> Get(int id, int pecuaristaId, DateTime? dataInicio, DateTime? dataFim)
+        // [Route("Relatorio?id={id}&pecuaristaId={pecuaristaId}&dataInicio={dataInicio}&dataFim={dataFim}")]
+        [Route("Relatorio/{id}/{pecuaristaId}/{dataInicio:DateTime?}/{dataFim:DateTime?}")]
+        public ActionResult<IEnumerable<CompraGadoDto>> Get(int id, int pecuaristaId, DateTime? dataInicio = null, DateTime? dataFim = null)
         {
             return Ok(_repository.RelatorioCompra(id, pecuaristaId, dataInicio, dataFim));
         }
