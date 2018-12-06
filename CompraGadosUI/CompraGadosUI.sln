@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompraGadosUI", "CompraGadosUI\CompraGadosUI.csproj", "{B37F4440-3682-4194-AE10-85FED168A3AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B37F4440-3682-4194-AE10-85FED168A3AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B37F4440-3682-4194-AE10-85FED168A3AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B37F4440-3682-4194-AE10-85FED168A3AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B37F4440-3682-4194-AE10-85FED168A3AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C5246367-EC8D-4C66-AF36-A475C0584318}
+	EndGlobalSection
+EndGlobal
