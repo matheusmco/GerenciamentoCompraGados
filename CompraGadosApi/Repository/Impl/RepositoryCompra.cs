@@ -11,12 +11,34 @@ namespace CompraGadosApi.Repository.Impl
     {
         public int AtualizarCompra(CompraGadoModel Compra)
         {
-            throw new NotImplementedException();
+            using (var connection = Connection)
+            {
+                connection.Execute("UPDATE COMPRA_GADO SET DATA_ENTREGA = @dataEntrega, PECUARISTA_ID = @pecuaristaId WHERE ID = @id",
+                    param: new
+                    {
+                        dataEntrega = Compra.DataEntrega,
+                        pecuaristaId = Compra.PecuaristaId,
+                        id = Compra.Id
+                    });
+            }
+
+            return Compra.Id;
         }
 
         public int AtualizarItem(CompraGadoItemModel Compra)
         {
-            throw new NotImplementedException();
+            using (var connection = Connection)
+            {
+                connection.QueryFirst("UPDATE COMPRA_GADO_ITEM SET QUANTIDADE = @quantidade, ANIMAL_ID = @animalId WHERE ID = @id",
+                    param: new
+                    {
+                        quantidade = Compra.Quantidade,
+                        animalId = Compra.AnimalId,
+                        id = Compra.Id
+                    });
+            }
+
+            return Compra.Id;
         }
 
         public CompraGadoDto ConsultarCompra(int id)
@@ -45,22 +67,53 @@ namespace CompraGadosApi.Repository.Impl
 
         public void DeletarCompra(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = Connection)
+            {
+                connection.Execute("DELETE FROM COMPRA_GADO WHERE ID = @id",
+                    param: new
+                    {
+                        id = id
+                    });
+            }
         }
 
         public void DeletarItem(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = Connection)
+            {
+                connection.Execute("DELETE FROM COMPRA_GADO_ITEM WHERE ID = @id",
+                    param: new
+                    {
+                        id = id
+                    });
+            }
         }
 
         public int GravarCompra(CompraGadoModel Compra)
         {
-            throw new NotImplementedException();
+            using (var connection = Connection)
+            {
+                return connection.QueryFirst<int>("INSERT INTO COMPRA_GADO (DATA_ENTREGA, PECUARISTA_ID) VALUES (@dataEntrega, @pecuaristaId); SELECT SCOPE_IDENTITY()",
+                    param: new
+                    {
+                        dataEntrega = Compra.DataEntrega,
+                        pecuaristaId = Compra.PecuaristaId
+                    });
+            }
         }
 
         public int GravarItem(CompraGadoItemModel Compra)
         {
-            throw new NotImplementedException();
+            using (var connection = Connection)
+            {
+                return connection.QueryFirst<int>("INSERT INTO COMPRA_GADO_ITEM (COMPRA_GADO_ID, QUANTIDADE, ANIMAL_ID) VALUES (@compraGadoId, @quantidade, @animalId); SELECT SCOPE_IDENTITY()",
+                    param: new
+                    {
+                        compraGadoId = Compra.CompraGadoId,
+                        quantidade = Compra.Quantidade,
+                        animalId = Compra.AnimalId
+                    });
+            }
         }
 
         public IEnumerable<CompraGadoDto> RelatorioCompra(int? id, int? pecuaristaId, DateTime? dataInicio, DateTime? dataFim)

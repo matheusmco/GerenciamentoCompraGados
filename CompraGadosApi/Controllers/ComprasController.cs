@@ -27,7 +27,6 @@ namespace CompraGadosApi.Controllers
         {
             var Compra = _repository.ConsultarCompra(id);
             Compra.Itens = _repository.ConsultarItensPorCompra(Compra.Id).ToList();
-            // Compra.ValorTotal = Compra.Itens.Select(x => x.QuantidadeAnimal * x.PrecoAnimal).Sum();
             return Ok(Compra);
         }
 
