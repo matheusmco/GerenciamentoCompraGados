@@ -1,6 +1,8 @@
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using Dapper;
+using Microsoft.Extensions.Configuration;
 
 namespace CompraGadosApi.Repository
 {
@@ -10,7 +12,14 @@ namespace CompraGadosApi.Repository
         {
             get
             {
-                var conn = new SqlConnection(""); //TODO: pegar de app.settings
+                var builder = new ConfigurationBuilder ()
+                    .SetBasePath (Directory.GetCurrentDirectory ())
+                    .AddJsonFile ("appsettings.json", optional : true, reloadOnChange : true);
+
+                IConfigurationRoot configuration = builder.Build ();
+
+                var connectionString = configuration.GetConnectionString ("DefaultConnection");
+                var conn = new SqlConnection(connectionString);
                 conn.Open();
                 // conn.Execute("Set Transaction Isolation Level Read UnCommitted");
                 return conn;
