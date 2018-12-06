@@ -27,11 +27,10 @@ namespace CompraGadosApi.Controllers
         {
             var Compra = _repository.ConsultarCompra(id);
             Compra.Itens = _repository.ConsultarItensPorCompra(Compra.Id).ToList();
-            Compra.ValorTotal = Compra.Itens.Select(x => x.QuantidadeAnimal * x.PrecoAnimal).Sum();
+            // Compra.ValorTotal = Compra.Itens.Select(x => x.QuantidadeAnimal * x.PrecoAnimal).Sum();
             return Ok(Compra);
         }
 
-        // [Route("Relatorio?id={id}&pecuaristaId={pecuaristaId}&dataInicio={dataInicio}&dataFim={dataFim}")]
         [Route("Relatorio/{id}/{pecuaristaId}/{dataInicio:DateTime?}/{dataFim:DateTime?}")]
         public ActionResult<IEnumerable<CompraGadoDto>> Get(int id, int pecuaristaId, DateTime? dataInicio = null, DateTime? dataFim = null)
         {

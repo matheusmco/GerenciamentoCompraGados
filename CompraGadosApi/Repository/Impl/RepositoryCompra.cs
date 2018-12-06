@@ -21,12 +21,26 @@ namespace CompraGadosApi.Repository.Impl
 
         public CompraGadoDto ConsultarCompra(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = Connection)
+            {
+                return connection.QueryFirst<CompraGadoDto>("SELECT ID, PECUARISTA_ID, DATA_ENTREGA, FLAG_IMPRESSO AS IS_IMPRESSO FROM COMPRA_GADO WHERE ID = @id",
+                    param: new
+                    {
+                        id
+                    });
+            }
         }
 
         public IEnumerable<CompraGadoItemDto> ConsultarItensPorCompra(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = Connection)
+            {
+                return connection.Query<CompraGadoItemDto>("SELECT COMPRA_GADO_ITEM.ID, ANIMAL.NOME AS NOME_ANIMAL, COMPRA_GADO.QUANTIDADE AS QUANTIDADE_ANIMAL FROM COMPRA_GADO_ITEM WHERE COMPRA_GADO_ID = @id",
+                    param: new
+                    {
+                        id
+                    });
+            }
         }
 
         public void DeletarCompra(int id)
@@ -54,10 +68,13 @@ namespace CompraGadosApi.Repository.Impl
             using (var connection = Connection)
             {
                 return connection.Query<CompraGadoDto>(""
-                    + "SELECT COMPRA_GADO.ID, PECUARISTA.NOME, COMPRA_GADO.DATA_ENTREGA "
+                    + "SELECT COMPRA_GADO.ID, PECUARISTA.NOME AS NOME_PECUARISTA, COMPRA_GADO.DATA_ENTREGA, SUM(COMPRA_GADO_ITEM.QUANTIDADE * ANIMAL.PRECO) AS VALOR_TOTAL "
                     + "FROM "
                     + "COMPRA_GADO INNER JOIN PECUARISTA ON COMPRA_GADO.PECUARISTA_ID = PECUARISTA.ID "
-                    + "WHERE COMPRA_GADO.ID = @id OR COMPRA_GADO.PECUARISTA_ID = @pecuaristaId OR COMPRA_GADO.DATA_ENTREGA BETWEEN @dataInicio AND @dataFim",
+                    + "INNER JOIN COMPRA_GADO_ITEM ON COMPRA_GADO.ID = COMPRA_GADO_ITEM.COMPRA_GADO_ID "
+                    + "INNER JOIN ANIMAL ON COMPRA_GADO_ITEM.ANIMAL_ID = ANIMAL.ID "
+                    + "WHERE COMPRA_GADO.ID = @id OR COMPRA_GADO.PECUARISTA_ID = @pecuaristaId OR COMPRA_GADO.DATA_ENTREGA BETWEEN @dataInicio AND @dataFim "
+                    + "GROUP BY COMPRA_GADO.ID, PECUARISTA.NOME, COMPRA_GADO.DATA_ENTREGA",
                     param: new
                     {
                         id,
