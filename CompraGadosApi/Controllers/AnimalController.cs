@@ -24,7 +24,6 @@ namespace CompraGadosApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<AnimalDto>> Get()
         {
-            // this endpoint has a business rule
             return Ok(_repository.Get());
         }
     }

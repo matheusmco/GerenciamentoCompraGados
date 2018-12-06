@@ -2,7 +2,8 @@ namespace CompraGadosApi.Data.Dtos
 {
     public class AnimalDto
     {
-        public int AnimalId { get; set; }
-        public string NomeAnimal { get; set; }
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public double Preco { get; set; }
     }
 }

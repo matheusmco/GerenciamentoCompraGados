@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CompraGadosApi.Data.Dtos;
 using CompraGadosApi.Repository.Interface;
+using Dapper;
 
 namespace CompraGadosApi.Repository.Impl
 {
@@ -8,7 +9,10 @@ namespace CompraGadosApi.Repository.Impl
     {
         public IEnumerable<AnimalDto> Get()
         {
-            throw new System.NotImplementedException();
+            using (var connection = Connection)
+            {
+                return connection.Query<AnimalDto>("SELECT ID, DESCRICAO AS NOME, PRECO FROM ANIMAL");
+            }
         }
     }
 }
