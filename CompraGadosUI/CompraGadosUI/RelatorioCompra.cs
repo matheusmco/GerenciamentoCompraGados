@@ -40,6 +40,7 @@ namespace CompraGadosUI
 
             if ((IsNullEmptyOrWhiteSpace(txtId.Text)) && (IsNullEmptyOrWhiteSpace(pecuaristaId)) && !DateTime.TryParse(txtDataEntregaDe.Text, out dataEntregaDe) && !DateTime.TryParse(txtDataEntregaAte.Text, out dataEntregaAte))
             {
+                MessageBox.Show("Pelo menos um dos filtros deve ser preenchido para que seja realizada a pesquisa");
                 return;
             }
 
