@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace CompraGadosUI
 {
-    public partial class Form1 : Form
+    public partial class RelatorioCompra : Form
     {
-        public Form1()
+        public RelatorioCompra()
         {
             InitializeComponent();
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
