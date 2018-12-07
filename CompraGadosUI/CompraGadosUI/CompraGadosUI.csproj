@@ -52,7 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CadastroCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CadastroCompra.Designer.cs">
+      <DependentUpon>CadastroCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="ComboboxItem.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="RelatorioCompra.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,6 +68,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CadastroCompra.resx">
+      <DependentUpon>CadastroCompra.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

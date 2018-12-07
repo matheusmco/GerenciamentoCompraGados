@@ -187,6 +187,12 @@ namespace CompraGadosUI
                 }
             }
         }
+
+        private void btnAdicionar_Click(object sender, EventArgs e)
+        {
+            var formCadastro = new CadastroCompra();
+            formCadastro.Show();
+        }
     }
 
     public class Pecuarista
