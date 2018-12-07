@@ -28,6 +28,11 @@ namespace CompraGadosUI
 
         private void btnPesquisar_Click(object sender, EventArgs e)
         {
+            Pesquisar();
+        }
+
+        private void Pesquisar()
+        {
             DateTime dataEntregaDe;
             DateTime dataEntregaAte;
             var comboItem = cmbPecuarista.SelectedItem as ComboboxItem;
@@ -98,6 +103,7 @@ namespace CompraGadosUI
                     {
                         var JsonString = await response.Content.ReadAsStringAsync();
                         listaCompras = JsonConvert.DeserializeObject<CompraGado[]>(JsonString);
+
                         numberOfItems = listaCompras.Count();
 
                         if (numberOfItems <= itemsPerPage)
@@ -157,6 +163,28 @@ namespace CompraGadosUI
 
             index++;
             Paginar();
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            var Compra = (CompraGado)gridResultado.CurrentRow.DataBoundItem;
+            DeleteCompraGado(Compra.Id);
+        }
+
+        private async void DeleteCompraGado(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+
+                using (var response = await client.DeleteAsync("http://localhost:5000/api/Compras/" + id))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Pesquisar();
+                    }
+                }
+            }
         }
     }
 

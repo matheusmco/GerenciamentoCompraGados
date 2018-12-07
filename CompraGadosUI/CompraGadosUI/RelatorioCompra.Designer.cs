@@ -92,6 +92,7 @@
             this.btnExcluir.TabIndex = 4;
             this.btnExcluir.Text = "Excluir";
             this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
             // 
             // lblId
             // 
@@ -146,9 +147,14 @@
             // 
             // gridResultado
             // 
+            this.gridResultado.AllowUserToAddRows = false;
+            this.gridResultado.AllowUserToDeleteRows = false;
+            this.gridResultado.AllowUserToResizeRows = false;
             this.gridResultado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridResultado.Location = new System.Drawing.Point(16, 106);
+            this.gridResultado.MultiSelect = false;
             this.gridResultado.Name = "gridResultado";
+            this.gridResultado.ReadOnly = true;
             this.gridResultado.Size = new System.Drawing.Size(620, 332);
             this.gridResultado.TabIndex = 14;
             // 
