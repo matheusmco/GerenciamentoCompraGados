@@ -39,9 +39,11 @@
             this.lblPecuarista = new System.Windows.Forms.Label();
             this.cmbPecuarista = new System.Windows.Forms.ComboBox();
             this.lblAte = new System.Windows.Forms.Label();
-            this.txtDataEntregaDe = new System.Windows.Forms.DateTimePicker();
-            this.txtDataEntregaAte = new System.Windows.Forms.DateTimePicker();
             this.gridResultado = new System.Windows.Forms.DataGridView();
+            this.txtDataEntregaDe = new System.Windows.Forms.MaskedTextBox();
+            this.txtDataEntregaAte = new System.Windows.Forms.MaskedTextBox();
+            this.btnPrevious = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gridResultado)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,6 +55,7 @@
             this.btnPesquisar.TabIndex = 0;
             this.btnPesquisar.Text = "Pesquisar";
             this.btnPesquisar.UseVisualStyleBackColor = true;
+            this.btnPesquisar.Click += new System.EventHandler(this.btnPesquisar_Click);
             // 
             // btnImprimir
             // 
@@ -141,41 +144,62 @@
             this.lblAte.TabIndex = 11;
             this.lblAte.Text = "Até";
             // 
-            // txtDataEntregaDe
-            // 
-            this.txtDataEntregaDe.CustomFormat = "dd/MM/yyyy";
-            this.txtDataEntregaDe.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.txtDataEntregaDe.Location = new System.Drawing.Point(118, 80);
-            this.txtDataEntregaDe.Name = "txtDataEntregaDe";
-            this.txtDataEntregaDe.Size = new System.Drawing.Size(99, 20);
-            this.txtDataEntregaDe.TabIndex = 12;
-            this.txtDataEntregaDe.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
-            // 
-            // txtDataEntregaAte
-            // 
-            this.txtDataEntregaAte.CustomFormat = "dd/MM/yyyy";
-            this.txtDataEntregaAte.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.txtDataEntregaAte.Location = new System.Drawing.Point(290, 80);
-            this.txtDataEntregaAte.Name = "txtDataEntregaAte";
-            this.txtDataEntregaAte.Size = new System.Drawing.Size(121, 20);
-            this.txtDataEntregaAte.TabIndex = 13;
-            // 
             // gridResultado
             // 
             this.gridResultado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridResultado.Location = new System.Drawing.Point(16, 106);
             this.gridResultado.Name = "gridResultado";
-            this.gridResultado.Size = new System.Drawing.Size(395, 332);
+            this.gridResultado.Size = new System.Drawing.Size(620, 332);
             this.gridResultado.TabIndex = 14;
+            // 
+            // txtDataEntregaDe
+            // 
+            this.txtDataEntregaDe.Location = new System.Drawing.Point(118, 80);
+            this.txtDataEntregaDe.Mask = "00/00/0000";
+            this.txtDataEntregaDe.Name = "txtDataEntregaDe";
+            this.txtDataEntregaDe.Size = new System.Drawing.Size(100, 20);
+            this.txtDataEntregaDe.TabIndex = 15;
+            this.txtDataEntregaDe.ValidatingType = typeof(System.DateTime);
+            // 
+            // txtDataEntregaAte
+            // 
+            this.txtDataEntregaAte.Location = new System.Drawing.Point(290, 80);
+            this.txtDataEntregaAte.Mask = "00/00/0000";
+            this.txtDataEntregaAte.Name = "txtDataEntregaAte";
+            this.txtDataEntregaAte.Size = new System.Drawing.Size(100, 20);
+            this.txtDataEntregaAte.TabIndex = 16;
+            this.txtDataEntregaAte.ValidatingType = typeof(System.DateTime);
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Location = new System.Drawing.Point(234, 444);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(75, 23);
+            this.btnPrevious.TabIndex = 17;
+            this.btnPrevious.Text = "<";
+            this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(315, 444);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(75, 23);
+            this.btnNext.TabIndex = 18;
+            this.btnNext.Text = ">";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // RelatorioCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 450);
-            this.Controls.Add(this.gridResultado);
+            this.ClientSize = new System.Drawing.Size(641, 479);
+            this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.txtDataEntregaAte);
             this.Controls.Add(this.txtDataEntregaDe);
+            this.Controls.Add(this.gridResultado);
             this.Controls.Add(this.lblAte);
             this.Controls.Add(this.cmbPecuarista);
             this.Controls.Add(this.lblPecuarista);
@@ -189,6 +213,7 @@
             this.Controls.Add(this.btnPesquisar);
             this.Name = "RelatorioCompra";
             this.Text = "Consulta de compra de gado";
+            this.Load += new System.EventHandler(this.RelatorioCompra_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridResultado)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -208,9 +233,11 @@
         private System.Windows.Forms.Label lblPecuarista;
         private System.Windows.Forms.ComboBox cmbPecuarista;
         private System.Windows.Forms.Label lblAte;
-        private System.Windows.Forms.DateTimePicker txtDataEntregaDe;
-        private System.Windows.Forms.DateTimePicker txtDataEntregaAte;
         private System.Windows.Forms.DataGridView gridResultado;
+        private System.Windows.Forms.MaskedTextBox txtDataEntregaDe;
+        private System.Windows.Forms.MaskedTextBox txtDataEntregaAte;
+        private System.Windows.Forms.Button btnPrevious;
+        private System.Windows.Forms.Button btnNext;
     }
 }
 
