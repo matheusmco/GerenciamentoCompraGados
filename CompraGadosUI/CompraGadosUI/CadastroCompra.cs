@@ -12,7 +12,8 @@ namespace CompraGadosUI
     public partial class CadastroCompra : Form
     {
         int CompraId = 0;
-        new List<CompraGadoItem> itensExcluidos = new List<CompraGadoItem>();
+        List<CompraGadoItem> itensExcluidos = new List<CompraGadoItem>();
+        List<Animal> listaAnimal = new List<Animal>();
 
         public CadastroCompra()
         {
@@ -35,6 +36,7 @@ namespace CompraGadosUI
             CompraId = Global.CompraId;
 
             GetAllPecuarista();
+            GetAllAnimal();
 
             if (Global.CompraId > 0)
             {
@@ -110,9 +112,10 @@ namespace CompraGadosUI
                     if (response.IsSuccessStatusCode)
                     {
                         var PecuaristaJsonString = await response.Content.ReadAsStringAsync();
-                        foreach (var item in JsonConvert.DeserializeObject<Pecuarista[]>(PecuaristaJsonString))
+                        listaAnimal = JsonConvert.DeserializeObject<List<Animal>>(PecuaristaJsonString);
+                        foreach (var item in listaAnimal)
                         {
-                            cmbPecuarista.Items.Add(new ComboboxItem()
+                            cmbAnimal.Items.Add(new ComboboxItem()
                             {
                                 Text = item.Nome,
                                 Value = item.Id
@@ -213,19 +216,92 @@ namespace CompraGadosUI
 
         private void btnAdicionar_Click(object sender, EventArgs e)
         {
-            //TODO: get items from dataGrid
-            var a = (List<CompraGadoItem>)gridItems.DataSource;
-            a.Add(new CompraGadoItem());
-            gridItems.DataSource = a;
-            //TODO: add new empty item
-            //TODO: add items to dataGrid
+            AdicionarAnimal();
+        }
+
+        private void AdicionarAnimal()
+        {
+            if (cmbAnimal.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione um animal");
+                return;
+            }
+
+            var Item = new CompraGadoItem();
+
+            var id = txtIdItemHidden.Text;
+            if (IsNullEmptyOrWhiteSpace(id))
+            {
+                Item.Id = 0;
+            }
+            else
+            {
+                Item.Id = int.Parse(id);
+            }
+
+            Item.AnimalId = (cmbAnimal.SelectedItem as ComboboxItem).Value;
+
+            var dataSource = (List<CompraGadoItem>)gridItems.DataSource;
+
+            if (dataSource != null)
+            {
+                if (dataSource.Where(x => x.AnimalId == Item.AnimalId && x.Id != Item.Id).Count() > 0)
+                {
+                    MessageBox.Show("Não é permitido mais de um item com o mesmo animal");
+                    return;
+
+                }
+            }
+            
+            Item.NomeAnimal = (cmbAnimal.SelectedItem as ComboboxItem).Text;
+
+            var quantidade = txtQuantidade.Text;
+
+            if (IsNullEmptyOrWhiteSpace(quantidade))
+            {
+                MessageBox.Show("Preencha quantidade");
+                return;
+
+            }
+
+            Item.QuantidadeAnimal = int.Parse(quantidade);
+
+            if (Item.QuantidadeAnimal == 0)
+            {
+                MessageBox.Show("Preencha quantidade com  valor maior que 0");
+
+                return;
+
+            }
+
+            Item.PrecoAnimal = listaAnimal.Where(x => x.Id == Item.AnimalId).Select(x => x.Preco).First();
+            Item.ValorTotal = Item.QuantidadeAnimal * Item.PrecoAnimal;
+
+            var lista = (List<CompraGadoItem>)gridItems.DataSource;
+
+            if(lista != null)
+            {
+                lista.Remove(lista.Where(x => x.Id == Item.Id).First());
+
+            }
+            else
+            {
+                lista = new List<CompraGadoItem>();
+            }
+
+
+            lista.Add(Item);
+
+            gridItems.DataSource = null;
+            gridItems.DataSource = lista;
+
+            ConfigurarColunasDataGrid();
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            if (gridItems.CurrentRow == null)
+            if (!ConsistirItemSelecionado())
             {
-                MessageBox.Show("Selecione um item para excluir");
                 return;
             }
 
@@ -242,6 +318,16 @@ namespace CompraGadosUI
             ConfigurarColunasDataGrid();
         }
 
+        private bool ConsistirItemSelecionado()
+        {
+            if (gridItems.CurrentRow == null)
+            {
+                MessageBox.Show("Selecione um item para excluir");
+                return false;
+            }
+            return true;
+        }
+
         private void ConfigurarColunasDataGrid()
         {
             gridItems.Columns["NomeAnimal"].HeaderText = "Animal";
@@ -252,5 +338,33 @@ namespace CompraGadosUI
             gridItems.Columns["AnimalId"].Visible = false;
             gridItems.Columns["FlagExcluir"].Visible = false;
         }
+
+        private void btnAlterar_Click(object sender, EventArgs e)
+        {
+            if (!ConsistirItemSelecionado())
+            {
+                return;
+            }
+
+            //TODO: valorizar txts com valores do item
+            var a = (CompraGadoItem)gridItems.CurrentRow.DataBoundItem;
+            for (var i = 0; i < cmbPecuarista.Items.Count; i++)
+            {
+                if ((cmbAnimal.Items[i] as ComboboxItem).Value == a.AnimalId)
+                {
+                    cmbAnimal.SelectedIndex = i;
+                    break;
+                }
+            }
+            txtQuantidade.Value = a.QuantidadeAnimal;
+            txtIdItemHidden.Text = a.Id.ToString();
+        }
+    }
+
+    public class Animal
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public double Preco { get; set; }
     }
 }

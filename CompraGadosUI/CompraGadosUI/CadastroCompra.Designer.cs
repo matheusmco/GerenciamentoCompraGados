@@ -35,6 +35,9 @@
             this.txtDataEntrega = new System.Windows.Forms.MaskedTextBox();
             this.cmbPecuarista = new System.Windows.Forms.ComboBox();
             this.gbAnimais = new System.Windows.Forms.GroupBox();
+            this.lblQuantidade = new System.Windows.Forms.Label();
+            this.lblAnimal = new System.Windows.Forms.Label();
+            this.cmbAnimal = new System.Windows.Forms.ComboBox();
             this.btnAlterar = new System.Windows.Forms.Button();
             this.btnExcluir = new System.Windows.Forms.Button();
             this.btnAdicionar = new System.Windows.Forms.Button();
@@ -42,12 +45,11 @@
             this.lblTotal = new System.Windows.Forms.Label();
             this.gridItems = new System.Windows.Forms.DataGridView();
             this.btnGravar = new System.Windows.Forms.Button();
-            this.cbmAnimal = new System.Windows.Forms.ComboBox();
-            this.lblAnimal = new System.Windows.Forms.Label();
-            this.txtQuantidade = new System.Windows.Forms.TextBox();
-            this.lblQuantidade = new System.Windows.Forms.Label();
+            this.txtQuantidade = new System.Windows.Forms.NumericUpDown();
+            this.txtIdItemHidden = new System.Windows.Forms.Label();
             this.gbAnimais.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridItems)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtQuantidade)).BeginInit();
             this.SuspendLayout();
             // 
             // lblId
@@ -104,10 +106,11 @@
             // 
             // gbAnimais
             // 
-            this.gbAnimais.Controls.Add(this.lblQuantidade);
+            this.gbAnimais.Controls.Add(this.txtIdItemHidden);
             this.gbAnimais.Controls.Add(this.txtQuantidade);
+            this.gbAnimais.Controls.Add(this.lblQuantidade);
             this.gbAnimais.Controls.Add(this.lblAnimal);
-            this.gbAnimais.Controls.Add(this.cbmAnimal);
+            this.gbAnimais.Controls.Add(this.cmbAnimal);
             this.gbAnimais.Controls.Add(this.btnAlterar);
             this.gbAnimais.Controls.Add(this.btnExcluir);
             this.gbAnimais.Controls.Add(this.btnAdicionar);
@@ -122,6 +125,32 @@
             this.gbAnimais.Text = "Animais";
             this.gbAnimais.Enter += new System.EventHandler(this.gbAnimais_Enter);
             // 
+            // lblQuantidade
+            // 
+            this.lblQuantidade.AutoSize = true;
+            this.lblQuantidade.Location = new System.Drawing.Point(170, 47);
+            this.lblQuantidade.Name = "lblQuantidade";
+            this.lblQuantidade.Size = new System.Drawing.Size(62, 13);
+            this.lblQuantidade.TabIndex = 9;
+            this.lblQuantidade.Text = "Quantidade";
+            // 
+            // lblAnimal
+            // 
+            this.lblAnimal.AutoSize = true;
+            this.lblAnimal.Location = new System.Drawing.Point(12, 47);
+            this.lblAnimal.Name = "lblAnimal";
+            this.lblAnimal.Size = new System.Drawing.Size(38, 13);
+            this.lblAnimal.TabIndex = 7;
+            this.lblAnimal.Text = "Animal";
+            // 
+            // cmbAnimal
+            // 
+            this.cmbAnimal.FormattingEnabled = true;
+            this.cmbAnimal.Location = new System.Drawing.Point(15, 62);
+            this.cmbAnimal.Name = "cmbAnimal";
+            this.cmbAnimal.Size = new System.Drawing.Size(152, 21);
+            this.cmbAnimal.TabIndex = 6;
+            // 
             // btnAlterar
             // 
             this.btnAlterar.Location = new System.Drawing.Point(90, 19);
@@ -130,6 +159,7 @@
             this.btnAlterar.TabIndex = 5;
             this.btnAlterar.Text = "Alterar";
             this.btnAlterar.UseVisualStyleBackColor = true;
+            this.btnAlterar.Click += new System.EventHandler(this.btnAlterar_Click);
             // 
             // btnExcluir
             // 
@@ -143,7 +173,7 @@
             // 
             // btnAdicionar
             // 
-            this.btnAdicionar.Location = new System.Drawing.Point(278, 63);
+            this.btnAdicionar.Location = new System.Drawing.Point(299, 60);
             this.btnAdicionar.Name = "btnAdicionar";
             this.btnAdicionar.Size = new System.Drawing.Size(75, 23);
             this.btnAdicionar.TabIndex = 3;
@@ -188,38 +218,37 @@
             this.btnGravar.UseVisualStyleBackColor = true;
             this.btnGravar.Click += new System.EventHandler(this.btnGravar_Click);
             // 
-            // cbmAnimal
-            // 
-            this.cbmAnimal.FormattingEnabled = true;
-            this.cbmAnimal.Location = new System.Drawing.Point(10, 65);
-            this.cbmAnimal.Name = "cbmAnimal";
-            this.cbmAnimal.Size = new System.Drawing.Size(8, 21);
-            this.cbmAnimal.TabIndex = 6;
-            // 
-            // lblAnimal
-            // 
-            this.lblAnimal.AutoSize = true;
-            this.lblAnimal.Location = new System.Drawing.Point(10, 49);
-            this.lblAnimal.Name = "lblAnimal";
-            this.lblAnimal.Size = new System.Drawing.Size(38, 13);
-            this.lblAnimal.TabIndex = 7;
-            this.lblAnimal.Text = "Animal";
-            // 
             // txtQuantidade
             // 
-            this.txtQuantidade.Location = new System.Drawing.Point(172, 65);
+            this.txtQuantidade.Location = new System.Drawing.Point(173, 63);
+            this.txtQuantidade.Maximum = new decimal(new int[] {
+            -727379969,
+            232,
+            0,
+            0});
+            this.txtQuantidade.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.txtQuantidade.Name = "txtQuantidade";
-            this.txtQuantidade.Size = new System.Drawing.Size(100, 20);
-            this.txtQuantidade.TabIndex = 8;
+            this.txtQuantidade.Size = new System.Drawing.Size(120, 20);
+            this.txtQuantidade.TabIndex = 10;
+            this.txtQuantidade.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
-            // lblQuantidade
+            // txtIdItemHidden
             // 
-            this.lblQuantidade.AutoSize = true;
-            this.lblQuantidade.Location = new System.Drawing.Point(177, 49);
-            this.lblQuantidade.Name = "lblQuantidade";
-            this.lblQuantidade.Size = new System.Drawing.Size(62, 13);
-            this.lblQuantidade.TabIndex = 9;
-            this.lblQuantidade.Text = "Quantidade";
+            this.txtIdItemHidden.AutoSize = true;
+            this.txtIdItemHidden.Location = new System.Drawing.Point(258, 29);
+            this.txtIdItemHidden.Name = "txtIdItemHidden";
+            this.txtIdItemHidden.Size = new System.Drawing.Size(13, 13);
+            this.txtIdItemHidden.TabIndex = 8;
+            this.txtIdItemHidden.Text = "0";
+            this.txtIdItemHidden.Visible = false;
             // 
             // CadastroCompra
             // 
@@ -241,6 +270,7 @@
             this.gbAnimais.ResumeLayout(false);
             this.gbAnimais.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridItems)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtQuantidade)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -263,8 +293,9 @@
         private System.Windows.Forms.Button btnAdicionar;
         private System.Windows.Forms.Button btnGravar;
         private System.Windows.Forms.Label lblQuantidade;
-        private System.Windows.Forms.TextBox txtQuantidade;
         private System.Windows.Forms.Label lblAnimal;
-        private System.Windows.Forms.ComboBox cbmAnimal;
+        private System.Windows.Forms.ComboBox cmbAnimal;
+        private System.Windows.Forms.NumericUpDown txtQuantidade;
+        private System.Windows.Forms.Label txtIdItemHidden;
     }
 }
