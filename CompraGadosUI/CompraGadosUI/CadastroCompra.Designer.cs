@@ -35,14 +35,15 @@
             this.txtDataEntrega = new System.Windows.Forms.MaskedTextBox();
             this.cmbPecuarista = new System.Windows.Forms.ComboBox();
             this.gbAnimais = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.lblTotal = new System.Windows.Forms.Label();
-            this.lblValorTotal = new System.Windows.Forms.Label();
-            this.btnAdicionar = new System.Windows.Forms.Button();
-            this.btnExcluir = new System.Windows.Forms.Button();
             this.btnAlterar = new System.Windows.Forms.Button();
+            this.btnExcluir = new System.Windows.Forms.Button();
+            this.btnAdicionar = new System.Windows.Forms.Button();
+            this.lblValorTotal = new System.Windows.Forms.Label();
+            this.lblTotal = new System.Windows.Forms.Label();
+            this.gridItems = new System.Windows.Forms.DataGridView();
+            this.btnGravar = new System.Windows.Forms.Button();
             this.gbAnimais.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridItems)).BeginInit();
             this.SuspendLayout();
             // 
             // lblId
@@ -76,6 +77,7 @@
             // 
             this.txtId.Location = new System.Drawing.Point(102, 12);
             this.txtId.Name = "txtId";
+            this.txtId.ReadOnly = true;
             this.txtId.Size = new System.Drawing.Size(100, 20);
             this.txtId.TabIndex = 3;
             // 
@@ -103,7 +105,7 @@
             this.gbAnimais.Controls.Add(this.btnAdicionar);
             this.gbAnimais.Controls.Add(this.lblValorTotal);
             this.gbAnimais.Controls.Add(this.lblTotal);
-            this.gbAnimais.Controls.Add(this.dataGridView1);
+            this.gbAnimais.Controls.Add(this.gridItems);
             this.gbAnimais.Location = new System.Drawing.Point(15, 64);
             this.gbAnimais.Name = "gbAnimais";
             this.gbAnimais.Size = new System.Drawing.Size(377, 232);
@@ -112,22 +114,34 @@
             this.gbAnimais.Text = "Animais";
             this.gbAnimais.Enter += new System.EventHandler(this.gbAnimais_Enter);
             // 
-            // dataGridView1
+            // btnAlterar
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 52);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(365, 141);
-            this.dataGridView1.TabIndex = 0;
+            this.btnAlterar.Location = new System.Drawing.Point(168, 19);
+            this.btnAlterar.Name = "btnAlterar";
+            this.btnAlterar.Size = new System.Drawing.Size(75, 23);
+            this.btnAlterar.TabIndex = 5;
+            this.btnAlterar.Text = "Alterar";
+            this.btnAlterar.UseVisualStyleBackColor = true;
             // 
-            // lblTotal
+            // btnExcluir
             // 
-            this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(173, 206);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(34, 13);
-            this.lblTotal.TabIndex = 1;
-            this.lblTotal.Text = "Total:";
+            this.btnExcluir.Location = new System.Drawing.Point(87, 19);
+            this.btnExcluir.Name = "btnExcluir";
+            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
+            this.btnExcluir.TabIndex = 4;
+            this.btnExcluir.Text = "Excluir";
+            this.btnExcluir.UseVisualStyleBackColor = true;
+            this.btnExcluir.Click += new System.EventHandler(this.btnExcluir_Click);
+            // 
+            // btnAdicionar
+            // 
+            this.btnAdicionar.Location = new System.Drawing.Point(6, 19);
+            this.btnAdicionar.Name = "btnAdicionar";
+            this.btnAdicionar.Size = new System.Drawing.Size(75, 23);
+            this.btnAdicionar.TabIndex = 3;
+            this.btnAdicionar.Text = "Adicionar";
+            this.btnAdicionar.UseVisualStyleBackColor = true;
+            this.btnAdicionar.Click += new System.EventHandler(this.btnAdicionar_Click);
             // 
             // lblValorTotal
             // 
@@ -139,38 +153,39 @@
             this.lblValorTotal.Text = "valorTotalAqui";
             this.lblValorTotal.Visible = false;
             // 
-            // btnAdicionar
+            // lblTotal
             // 
-            this.btnAdicionar.Location = new System.Drawing.Point(6, 19);
-            this.btnAdicionar.Name = "btnAdicionar";
-            this.btnAdicionar.Size = new System.Drawing.Size(75, 23);
-            this.btnAdicionar.TabIndex = 3;
-            this.btnAdicionar.Text = "Adicionar";
-            this.btnAdicionar.UseVisualStyleBackColor = true;
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Location = new System.Drawing.Point(173, 206);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(34, 13);
+            this.lblTotal.TabIndex = 1;
+            this.lblTotal.Text = "Total:";
             // 
-            // btnExcluir
+            // gridItems
             // 
-            this.btnExcluir.Location = new System.Drawing.Point(87, 19);
-            this.btnExcluir.Name = "btnExcluir";
-            this.btnExcluir.Size = new System.Drawing.Size(75, 23);
-            this.btnExcluir.TabIndex = 4;
-            this.btnExcluir.Text = "Excluir";
-            this.btnExcluir.UseVisualStyleBackColor = true;
+            this.gridItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridItems.Location = new System.Drawing.Point(6, 52);
+            this.gridItems.Name = "gridItems";
+            this.gridItems.Size = new System.Drawing.Size(365, 141);
+            this.gridItems.TabIndex = 0;
             // 
-            // btnAlterar
+            // btnGravar
             // 
-            this.btnAlterar.Location = new System.Drawing.Point(168, 19);
-            this.btnAlterar.Name = "btnAlterar";
-            this.btnAlterar.Size = new System.Drawing.Size(75, 23);
-            this.btnAlterar.TabIndex = 5;
-            this.btnAlterar.Text = "Alterar";
-            this.btnAlterar.UseVisualStyleBackColor = true;
+            this.btnGravar.Location = new System.Drawing.Point(147, 302);
+            this.btnGravar.Name = "btnGravar";
+            this.btnGravar.Size = new System.Drawing.Size(75, 23);
+            this.btnGravar.TabIndex = 7;
+            this.btnGravar.Text = "Gravar";
+            this.btnGravar.UseVisualStyleBackColor = true;
+            this.btnGravar.Click += new System.EventHandler(this.btnGravar_Click);
             // 
             // CadastroCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(415, 320);
+            this.ClientSize = new System.Drawing.Size(405, 337);
+            this.Controls.Add(this.btnGravar);
             this.Controls.Add(this.gbAnimais);
             this.Controls.Add(this.cmbPecuarista);
             this.Controls.Add(this.txtDataEntrega);
@@ -181,9 +196,10 @@
             this.Name = "CadastroCompra";
             this.Text = "Cadastro de compra de gado";
             this.Deactivate += new System.EventHandler(this.CadastroCompra_Deactivate);
+            this.Load += new System.EventHandler(this.CadastroCompra_Load);
             this.gbAnimais.ResumeLayout(false);
             this.gbAnimais.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridItems)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -198,11 +214,12 @@
         private System.Windows.Forms.MaskedTextBox txtDataEntrega;
         private System.Windows.Forms.ComboBox cmbPecuarista;
         private System.Windows.Forms.GroupBox gbAnimais;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView gridItems;
         private System.Windows.Forms.Label lblValorTotal;
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Button btnAlterar;
         private System.Windows.Forms.Button btnExcluir;
         private System.Windows.Forms.Button btnAdicionar;
+        private System.Windows.Forms.Button btnGravar;
     }
 }

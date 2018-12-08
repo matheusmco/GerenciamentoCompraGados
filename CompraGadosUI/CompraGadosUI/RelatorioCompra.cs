@@ -168,7 +168,7 @@ namespace CompraGadosUI
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            var Compra = (CompraGado)gridResultado.CurrentRow.DataBoundItem;
+            var Compra = ObterCompraSelecionada();
             DeleteCompraGado(Compra.Id);
         }
 
@@ -189,6 +189,36 @@ namespace CompraGadosUI
         }
 
         private void btnAdicionar_Click(object sender, EventArgs e)
+        {
+            Global.CompraId = 0;
+            ChamarFormCadastro();
+        }
+
+        private CompraGado ObterCompraSelecionada()
+        {
+            if (gridResultado.CurrentRow != null)
+            {
+                return (CompraGado)gridResultado.CurrentRow.DataBoundItem;
+            }
+
+            return null;
+        }
+
+        private void btnAlterar_Click(object sender, EventArgs e)
+        {
+            var Compra = ObterCompraSelecionada();
+
+            if (Compra == null)
+            {
+                MessageBox.Show("Selecione uma compra para alterar");
+                return;
+            }
+
+            Global.CompraId = Compra.Id;
+            ChamarFormCadastro();
+        }
+
+        private void ChamarFormCadastro()
         {
             var formCadastro = new CadastroCompra();
             formCadastro.Show();
@@ -220,5 +250,6 @@ namespace CompraGadosUI
         public int QuantidadeAnimal { get; set; }
         public double PrecoAnimal { get; set; }
         public bool FlagExcluir { get; set; }
+        public double ValorTotal { get; set; }
     }
 }

@@ -2,6 +2,6 @@
 {
     class Global
     {
-        public int CompraId { get; set; }
+        public static int CompraId { get; set; }
     }
 }
