@@ -12,6 +12,7 @@ namespace CompraGadosUI
     public partial class CadastroCompra : Form
     {
         int CompraId = 0;
+        new List<CompraGadoItem> itensExcluidos = new List<CompraGadoItem>();
 
         public CadastroCompra()
         {
@@ -68,13 +69,7 @@ namespace CompraGadosUI
 
                         gridItems.DataSource = Model.Itens;
 
-                        gridItems.Columns["NomeAnimal"].HeaderText = "Animal";
-                        gridItems.Columns["QuantidadeAnimal"].HeaderText = "Quantidade";
-                        gridItems.Columns["PrecoAnimal"].HeaderText = "Preço";
-
-                        gridItems.Columns["Id"].Visible = false;
-                        gridItems.Columns["AnimalId"].Visible = false;
-                        gridItems.Columns["FlagExcluir"].Visible = false;
+                        ConfigurarColunasDataGrid();
                     }
                 }
             }
@@ -104,16 +99,37 @@ namespace CompraGadosUI
             }
         }
 
+        private async void GetAllAnimal()
+        {
+            using (var client = new HttpClient())
+            {
+                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+
+                using (var response = await client.GetAsync("http://localhost:5000/api/Animal"))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var PecuaristaJsonString = await response.Content.ReadAsStringAsync();
+                        foreach (var item in JsonConvert.DeserializeObject<Pecuarista[]>(PecuaristaJsonString))
+                        {
+                            cmbPecuarista.Items.Add(new ComboboxItem()
+                            {
+                                Text = item.Nome,
+                                Value = item.Id
+                            });
+                        }
+                    }
+                }
+            }
+        }
+
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            //TODO: validar valores selecionados na tela
             if (!ValidarGravacao())
             {
                 return;
             }
 
-
-            //TODO: pegar valores de tela e valorizar objeto DTO
             var Compra = new CompraGado() { };
 
             var id = txtId.Text;
@@ -122,10 +138,9 @@ namespace CompraGadosUI
             Compra.DataEntrega = Convert.ToDateTime(txtDataEntrega.Text);
             Compra.PecuaristaId = (cmbPecuarista.SelectedItem as ComboboxItem).Value;
             Compra.Itens = (List<CompraGadoItem>)gridItems.DataSource;
+            Compra.Itens.AddRange(itensExcluidos);
 
-            //TODO: chamada Async para gravação
             PostCompraGado(Compra);
-            //TODO: necessário pegar id, verificar se post está retornando
         }
 
         private bool IsNullEmptyOrWhiteSpace(string value)
@@ -190,7 +205,7 @@ namespace CompraGadosUI
                 {
                     if (response.IsSuccessStatusCode)
                     {
-
+                        MessageBox.Show("Registro gravado com sucesso");
                     }
                 }
             }
@@ -208,9 +223,34 @@ namespace CompraGadosUI
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            //TODO: get id from selected item
-            //TODO: send delete
-            //TODO: delete it from datagridview
+            if (gridItems.CurrentRow == null)
+            {
+                MessageBox.Show("Selecione um item para excluir");
+                return;
+            }
+
+            var a = (CompraGadoItem)gridItems.CurrentRow.DataBoundItem;
+
+            a.FlagExcluir = true;
+            itensExcluidos.Add(a);
+
+            var lista = (List<CompraGadoItem>)gridItems.DataSource;
+            lista.Remove(a);
+            gridItems.DataSource = null;
+            gridItems.DataSource = lista;
+
+            ConfigurarColunasDataGrid();
+        }
+
+        private void ConfigurarColunasDataGrid()
+        {
+            gridItems.Columns["NomeAnimal"].HeaderText = "Animal";
+            gridItems.Columns["QuantidadeAnimal"].HeaderText = "Quantidade";
+            gridItems.Columns["PrecoAnimal"].HeaderText = "Preço";
+
+            gridItems.Columns["Id"].Visible = false;
+            gridItems.Columns["AnimalId"].Visible = false;
+            gridItems.Columns["FlagExcluir"].Visible = false;
         }
     }
 }
