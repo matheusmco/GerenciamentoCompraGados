@@ -35,6 +35,8 @@
             this.txtDataEntrega = new System.Windows.Forms.MaskedTextBox();
             this.cmbPecuarista = new System.Windows.Forms.ComboBox();
             this.gbAnimais = new System.Windows.Forms.GroupBox();
+            this.txtControlGravarAlterar = new System.Windows.Forms.Label();
+            this.txtQuantidade = new System.Windows.Forms.NumericUpDown();
             this.lblQuantidade = new System.Windows.Forms.Label();
             this.lblAnimal = new System.Windows.Forms.Label();
             this.cmbAnimal = new System.Windows.Forms.ComboBox();
@@ -45,11 +47,10 @@
             this.lblTotal = new System.Windows.Forms.Label();
             this.gridItems = new System.Windows.Forms.DataGridView();
             this.btnGravar = new System.Windows.Forms.Button();
-            this.txtQuantidade = new System.Windows.Forms.NumericUpDown();
             this.txtIdItemHidden = new System.Windows.Forms.Label();
             this.gbAnimais.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQuantidade)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridItems)).BeginInit();
             this.SuspendLayout();
             // 
             // lblId
@@ -107,6 +108,7 @@
             // gbAnimais
             // 
             this.gbAnimais.Controls.Add(this.txtIdItemHidden);
+            this.gbAnimais.Controls.Add(this.txtControlGravarAlterar);
             this.gbAnimais.Controls.Add(this.txtQuantidade);
             this.gbAnimais.Controls.Add(this.lblQuantidade);
             this.gbAnimais.Controls.Add(this.lblAnimal);
@@ -123,7 +125,38 @@
             this.gbAnimais.TabIndex = 6;
             this.gbAnimais.TabStop = false;
             this.gbAnimais.Text = "Animais";
-            this.gbAnimais.Enter += new System.EventHandler(this.gbAnimais_Enter);
+            // 
+            // txtControlGravarAlterar
+            // 
+            this.txtControlGravarAlterar.AutoSize = true;
+            this.txtControlGravarAlterar.Location = new System.Drawing.Point(258, 29);
+            this.txtControlGravarAlterar.Name = "txtControlGravarAlterar";
+            this.txtControlGravarAlterar.Size = new System.Drawing.Size(13, 13);
+            this.txtControlGravarAlterar.TabIndex = 8;
+            this.txtControlGravarAlterar.Text = "0";
+            this.txtControlGravarAlterar.Visible = false;
+            // 
+            // txtQuantidade
+            // 
+            this.txtQuantidade.Location = new System.Drawing.Point(173, 63);
+            this.txtQuantidade.Maximum = new decimal(new int[] {
+            -727379969,
+            232,
+            0,
+            0});
+            this.txtQuantidade.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.txtQuantidade.Name = "txtQuantidade";
+            this.txtQuantidade.Size = new System.Drawing.Size(120, 20);
+            this.txtQuantidade.TabIndex = 10;
+            this.txtQuantidade.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // lblQuantidade
             // 
@@ -217,35 +250,13 @@
             this.btnGravar.UseVisualStyleBackColor = true;
             this.btnGravar.Click += new System.EventHandler(this.btnGravar_Click);
             // 
-            // txtQuantidade
-            // 
-            this.txtQuantidade.Location = new System.Drawing.Point(173, 63);
-            this.txtQuantidade.Maximum = new decimal(new int[] {
-            -727379969,
-            232,
-            0,
-            0});
-            this.txtQuantidade.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.txtQuantidade.Name = "txtQuantidade";
-            this.txtQuantidade.Size = new System.Drawing.Size(120, 20);
-            this.txtQuantidade.TabIndex = 10;
-            this.txtQuantidade.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // txtIdItemHidden
             // 
             this.txtIdItemHidden.AutoSize = true;
-            this.txtIdItemHidden.Location = new System.Drawing.Point(258, 29);
+            this.txtIdItemHidden.Location = new System.Drawing.Point(277, 29);
             this.txtIdItemHidden.Name = "txtIdItemHidden";
             this.txtIdItemHidden.Size = new System.Drawing.Size(13, 13);
-            this.txtIdItemHidden.TabIndex = 8;
+            this.txtIdItemHidden.TabIndex = 11;
             this.txtIdItemHidden.Text = "0";
             this.txtIdItemHidden.Visible = false;
             // 
@@ -268,8 +279,8 @@
             this.Load += new System.EventHandler(this.CadastroCompra_Load);
             this.gbAnimais.ResumeLayout(false);
             this.gbAnimais.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtQuantidade)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridItems)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -295,6 +306,7 @@
         private System.Windows.Forms.Label lblAnimal;
         private System.Windows.Forms.ComboBox cmbAnimal;
         private System.Windows.Forms.NumericUpDown txtQuantidade;
+        private System.Windows.Forms.Label txtControlGravarAlterar;
         private System.Windows.Forms.Label txtIdItemHidden;
     }
 }

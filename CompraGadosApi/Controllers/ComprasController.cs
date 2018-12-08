@@ -111,7 +111,7 @@ namespace CompraGadosApi.Controllers
                 }
             });
 
-            return Ok();
+            return Ok(Model.Id);
         }
 
         [HttpDelete("{id}")]
