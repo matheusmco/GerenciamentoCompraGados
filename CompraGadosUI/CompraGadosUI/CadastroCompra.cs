@@ -252,7 +252,7 @@ namespace CompraGadosUI
 
                 }
             }
-            
+
             Item.NomeAnimal = (cmbAnimal.SelectedItem as ComboboxItem).Text;
 
             var quantidade = txtQuantidade.Text;
@@ -279,7 +279,7 @@ namespace CompraGadosUI
 
             var lista = (List<CompraGadoItem>)gridItems.DataSource;
 
-            if(lista != null)
+            if (lista != null)
             {
                 lista.Remove(lista.Where(x => x.Id == Item.Id).First());
 
@@ -333,10 +333,13 @@ namespace CompraGadosUI
             gridItems.Columns["NomeAnimal"].HeaderText = "Animal";
             gridItems.Columns["QuantidadeAnimal"].HeaderText = "Quantidade";
             gridItems.Columns["PrecoAnimal"].HeaderText = "Preço";
+            gridItems.Columns["ValorTotal"].HeaderText = "Valor Total";
 
             gridItems.Columns["Id"].Visible = false;
             gridItems.Columns["AnimalId"].Visible = false;
             gridItems.Columns["FlagExcluir"].Visible = false;
+
+            CalcularValorTotalCompra();
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
@@ -346,7 +349,6 @@ namespace CompraGadosUI
                 return;
             }
 
-            //TODO: valorizar txts com valores do item
             var a = (CompraGadoItem)gridItems.CurrentRow.DataBoundItem;
             for (var i = 0; i < cmbPecuarista.Items.Count; i++)
             {
@@ -358,6 +360,20 @@ namespace CompraGadosUI
             }
             txtQuantidade.Value = a.QuantidadeAnimal;
             txtIdItemHidden.Text = a.Id.ToString();
+        }
+
+        private void CalcularValorTotalCompra()
+        {
+            var lista = (List<CompraGadoItem>)gridItems.DataSource;
+            var valorTotal = 0.0;
+
+            if (lista != null)
+            {
+                valorTotal = lista.Select(x => x.ValorTotal).Sum();
+            }
+
+            lblValorTotal.Text = valorTotal.ToString();
+
         }
     }
 

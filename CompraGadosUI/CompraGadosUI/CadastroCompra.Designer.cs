@@ -186,10 +186,9 @@
             this.lblValorTotal.AutoSize = true;
             this.lblValorTotal.Location = new System.Drawing.Point(278, 236);
             this.lblValorTotal.Name = "lblValorTotal";
-            this.lblValorTotal.Size = new System.Drawing.Size(75, 13);
+            this.lblValorTotal.Size = new System.Drawing.Size(13, 13);
             this.lblValorTotal.TabIndex = 2;
-            this.lblValorTotal.Text = "valorTotalAqui";
-            this.lblValorTotal.Visible = false;
+            this.lblValorTotal.Text = "0";
             // 
             // lblTotal
             // 

@@ -57,7 +57,7 @@ namespace CompraGadosApi.Repository.Impl
         {
             using (var connection = Connection)
             {
-                return connection.Query<CompraGadoItemDto>("SELECT COMPRA_GADO_ITEM.ID, ANIMAL.ID AS ANIMAL_ID, ANIMAL.DESCRICAO AS NOME_ANIMAL, COMPRA_GADO_ITEM.QUANTIDADE AS QUANTIDADE_ANIMAL "
+                return connection.Query<CompraGadoItemDto>("SELECT COMPRA_GADO_ITEM.ID, ANIMAL.ID AS ANIMAL_ID, ANIMAL.DESCRICAO AS NOME_ANIMAL, COMPRA_GADO_ITEM.QUANTIDADE AS QUANTIDADE_ANIMAL, ANIMAL.PRECO AS PRECO_ANIMAL "
                 + "FROM COMPRA_GADO_ITEM "
                 + "INNER JOIN ANIMAL ON COMPRA_GADO_ITEM.ANIMAL_ID = ANIMAL.ID "
                 + "WHERE COMPRA_GADO_ID = @id",
